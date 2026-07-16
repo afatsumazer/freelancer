@@ -1,64 +1,91 @@
-export interface UserProfile {
-  uid: string;
-  email: string;
-  name: string;
-  title?: string;
-  rate?: number;
-  bio?: string;
-  createdAt?: string;
-}
+import { ComponentType } from "react";
 
-export type ProjectStatus = 'pitching' | 'active' | 'completed' | 'paused';
-
-export interface Project {
+export interface Task {
   id: string;
-  userId: string;
   title: string;
-  clientName: string;
-  deadline: string;
-  rate: number;
-  status: ProjectStatus;
-  notes?: string;
-  createdAt: string;
-}
-
-export type TransactionType = 'income' | 'expense';
-export type TransactionStatus = 'paid' | 'unpaid' | 'pending';
-
-export interface Transaction {
-  id: string;
-  userId: string;
-  type: TransactionType;
+  completed: boolean;
   category: string;
-  amount: number;
-  date: string;
-  status: TransactionStatus;
-  description?: string;
-  createdAt: string;
 }
 
-export interface TimeLog {
+export interface UploadedFile {
   id: string;
-  userId: string;
-  projectTitle: string;
-  date: string;
-  hours: number;
-  description?: string;
-  createdAt: string;
-}
-
-export type ClientStatus = 'active' | 'inactive';
-
-export interface Client {
-  id: string;
-  userId: string;
   name: string;
-  company: string;
+  size: string;
+  type: string;
+  uploadedAt: string;
+  dataUrl?: string;
+  ownerEmail?: string;
+  ownerName?: string;
+  visibility?: "private" | "public";
+}
+
+export interface MemberUser {
+  id: string;
+  name: string;
   email: string;
-  phone?: string;
-  status: ClientStatus;
-  notes?: string;
+  plan: "Starter" | "Premium";
+  role: "user" | "admin";
+  bio: string;
+  description: string;
+  avatar: string; // Preset name or URL
+  registeredAt: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  senderId: string; // "user", "client_budi", "client_rani", "support_bot"
+  senderName: string;
+  senderAvatar: string;
+  message: string;
+  timestamp: string;
+  isIncoming: boolean;
+}
+
+export interface CategoryConfig {
+  gradient: string;
+  glow: string;
+  icon: ComponentType<any>;
+  desc: string;
+}
+
+export interface SocialComment {
+  id: string;
+  authorEmail: string;
+  authorName: string;
+  authorAvatar: string;
+  content: string;
   createdAt: string;
 }
 
-export type ActiveTab = 'dashboard' | 'projects' | 'finance' | 'timelog' | 'clients' | 'profile';
+export interface PostAttachment {
+  id: string;
+  type: "image" | "video" | "link" | "file";
+  url: string;
+  name?: string;
+  size?: string;
+}
+
+export interface SocialPost {
+  id: string;
+  authorEmail: string;
+  authorName: string;
+  authorAvatar: string;
+  content: string;
+  createdAt: string;
+  likes: string[]; // array of user emails
+  comments: SocialComment[];
+  attachments?: PostAttachment[];
+}
+
+export interface PrivateMessage {
+  id: string;
+  senderEmail: string;
+  senderName: string;
+  senderAvatar: string;
+  receiverEmail: string;
+  receiverName: string;
+  receiverAvatar: string;
+  content: string;
+  createdAt: string;
+  read: boolean;
+}
